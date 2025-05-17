@@ -17,34 +17,34 @@ const imagesUrl = [
   `http://${localIP}:${port}/images/img3.jpg`,
 ];
 
+const std_list = [
+  {
+    name: "Ali",
+    age: 25,
+    imageUrl: imagesUrl[0],
+    city: "Lahore",
+    country: "Pakistan",
+  },
+  {
+    name: "Amir",
+    age: 22,
+    imageUrl: imagesUrl[1],
+    city: "Karachi",
+    country: "Pakistan",
+  },
+  {
+    name: "Umar",
+    age: 25,
+    imageUrl: imagesUrl[2],
+    city: "Lahore",
+    country: "Pakistan",
+  },
+];
 
 
 
 app.get("/data", (req, res) => {
-  let data = [
-    {
-      name: "Ali",
-      age: 25,
-      imageUrl: imagesUrl[0],
-      city: "Lahore",
-      country: "Pakistan",
-    },
-    {
-      name: "Amir",
-      age: 22,
-      imageUrl: imagesUrl[1],
-      city: "Karachi",
-      country: "Pakistan",
-    },
-    {
-      name: "Umar",
-      age: 25,
-      imageUrl: imagesUrl[2],
-      city: "Lahore",
-      country: "Pakistan",
-    },
-  ];
-  return res.json(data);
+  return res.json(std_list);
 });
 
 

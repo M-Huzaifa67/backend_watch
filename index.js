@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // This assumes you put the images inside /public/images/
 // const localIP = "192.168.100.108"; 
 const localIP = "192.168.1.2";
-let port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 
 // const imagesUrl = [
@@ -55,6 +55,6 @@ app.get("/data", (req, res) => {
 
 
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("Server is running on port 3000");
 });

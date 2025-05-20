@@ -12,14 +12,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const localIP = "192.168.1.2";
 const PORT = process.env.PORT || 3000;
 const BASEURL = process.env.BASEURL || `http://${localIP}:${PORT}`;
+const cities = [
+  "Lahore",
+  "Karachi",
+  "Islamabad",
+];
 
-// Helper function to generate a list of image URLs
 function generateImageList(basePath, prefix, extension = ".png", count = 10) {
-  const list = [];
+  const jsonDataList = {};
   for (let i = 1; i <= count; i++) {
-    list.push(`${BASEURL}/images/${basePath}/${prefix}${i}${extension}`);
+    let watchData = {
+      name: `${basePath} Watch ${i}`,
+      imageUrl: `${BASEURL}/images/${basePath}/${prefix}${i}${extension}`,
+      price : Math.floor(Math.random() * 10000) + 1000,
+      description: `This is a description for ${basePath} Watch ${i}.`,
+      city: cities[Math.floor(Math.random() * cities.length)],
+      country: "Pakistan",
+    };
+    jsonDataList[i] = watchData;
+    //list.push(`${BASEURL}/images/${basePath}/${prefix}${i}${extension}`);
   }
-  return list;
+  return jsonDataList;
 }
 
 // Generate image lists
@@ -33,32 +46,19 @@ const sylviList = generateImageList("Sylvi", "sylvi");
 const iwcList = generateImageList("Iwc", "iwc");
 
 // Sample API response
-const std_list = [
-  {
-    name: "Ali",
-    age: 25,
-    imageUrl: rolexList[0],
-    city: "Lahore",
-    country: "Pakistan",
-  },
-  {
-    name: "Amir",
-    age: 22,
-    imageUrl: omegaList[1],
-    city: "Karachi",
-    country: "Pakistan",
-  },
-  {
-    name: "Umar",
-    age: 25,
-    imageUrl: shanghaiList[2],
-    city: "Lahore",
-    country: "Pakistan",
-  },
+const watches_list = [
+  rolexList[1],
+  omegaList[2],
+  shanghaiList[3],
+  cartierList[4],
+  tudorList[5],
+  breguetList[6],
+  sylviList[7],
+  iwcList[8],
 ];
 
-app.get("/data", (req, res) => {
-  return res.json(std_list);
+app.get("/watches", (req, res) => {
+  return res.json(watches_list);
 });
 
 app.listen(PORT, () => {

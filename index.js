@@ -20,17 +20,16 @@ const cities = [
 
 function generateImageList(basePath, prefix, extension = ".png", count = 10) {
   const jsonDataList = {};
-  for (let i = 1; i <= count; i++) {
+  for (let i = 0; i < count; i++) {
     let watchData = {
       name: `${basePath} Watch ${i}`,
       imageUrl: `${BASEURL}/images/${basePath}/${prefix}${i}${extension}`,
-      price : Math.floor(Math.random() * 10000) + 1000,
+      price: Math.floor(Math.random() * 10000) + 3000,
       description: `This is a description for ${basePath} Watch ${i}.`,
       city: cities[Math.floor(Math.random() * cities.length)],
       country: "Pakistan",
     };
     jsonDataList[i] = watchData;
-    //list.push(`${BASEURL}/images/${basePath}/${prefix}${i}${extension}`);
   }
   return jsonDataList;
 }
@@ -46,19 +45,26 @@ const sylviList = generateImageList("Sylvi", "sylvi");
 const iwcList = generateImageList("Iwc", "iwc");
 
 // Sample API response
-const watches_list = [
-  rolexList[1],
-  omegaList[2],
-  shanghaiList[3],
-  cartierList[4],
-  tudorList[5],
-  breguetList[6],
-  sylviList[7],
-  iwcList[8],
-];
 
 app.get("/watches", (req, res) => {
-  return res.json(watches_list);
+  const brand = req.query.brand;
+  const watches_Json = {
+    Rolex: rolexList,
+    Omega: omegaList,
+    Shanghai: shanghaiList,
+    Cartier: cartierList,
+    Tudor: tudorList,
+    Breguet: breguetList,
+    Sylvi: sylviList,
+    Iwc: iwcList
+  };
+  if (brand && watches_Json[brand]) {
+    return res.json({ [brand]: watches_Json[brand] });
+  }
+
+  return res.json(
+    watches_Json
+  );
 });
 
 app.listen(PORT, () => {
